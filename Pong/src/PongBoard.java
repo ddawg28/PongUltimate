@@ -15,9 +15,11 @@ public class PongBoard extends JPanel implements Runnable {
 	static final int START_POS_Y = 320;
 	int paddle1Y = 320;
 	int paddle2Y = 320;
+	int playerOneScore = 0;
+	int playerTwoScore = 0;
 	
-	Paddle paddle1 = new Paddle(START_POS_X, paddle1Y, PADDLE_WIDTH, PADDLE_HEIGHT, Color.cyan, 1);
-	Paddle paddle2 = new Paddle((1200 - (START_POS_X * 2)), START_POS_Y, PADDLE_WIDTH, PADDLE_HEIGHT, Color.magenta, 2);
+	Paddle paddle1 = new Paddle(START_POS_X, paddle1Y, PADDLE_WIDTH, PADDLE_HEIGHT, Color.blue, 1);
+	Paddle paddle2 = new Paddle((1200 - (START_POS_X * 2)), START_POS_Y, PADDLE_WIDTH, PADDLE_HEIGHT, Color.blue, 2);
 	Ball pongBall = new Ball(600, 350);
 	Thread thread = new Thread(this);
 	JPanel test = new JPanel();
@@ -34,8 +36,6 @@ public class PongBoard extends JPanel implements Runnable {
 		this.addKeyListener(new ActionListener());
 		this.setFocusable(true);
 		thread.start();
-		
-		
 	}
 	
 	public class ActionListener extends KeyAdapter {
@@ -49,49 +49,20 @@ public class PongBoard extends JPanel implements Runnable {
 		}
 	}
 	
-//	public class PaddleKeyListener implements KeyListener {
-//		public void keyTyped(KeyEvent e) {
-//			
-//		}
-//
-//		@Override
-//		public void keyPressed(KeyEvent e) {
-//			if (e.getKeyCode() == KeyEvent.VK_W) {
-//				paddle1Y -= 10;
-//				paddle1.setBounds(paddle1.getXPos(), paddle1Y, PADDLE_WIDTH, PADDLE_HEIGHT);
-//			}
-//			if (e.getKeyCode() == KeyEvent.VK_S) {
-//				paddle1Y += 10;
-//				paddle1.setBounds(paddle1.getXPos(), paddle1Y, PADDLE_WIDTH, PADDLE_HEIGHT);
-//			}
-//			if (e.getKeyCode() == KeyEvent.VK_UP) {
-//				paddle2Y -= 10;
-//				paddle2.setBounds(paddle2.getXPos(), paddle2Y, PADDLE_WIDTH, PADDLE_HEIGHT);
-//			}
-//			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-//				paddle2Y += 10;
-//				paddle2.setBounds(paddle2.getXPos(), paddle2Y, PADDLE_WIDTH, PADDLE_HEIGHT);
-//			}
-//		}
-//
-//		@Override
-//		public void keyReleased(KeyEvent e) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//	}
-	
 	public void update(double dt) {
 		System.out.println(dt);
 	}
 	
 	public void checkForCollision() {
 		if (pongBall.getBounds().intersects(paddle2.getBounds()) || pongBall.getBounds().intersects(paddle1.getBounds())) {
-			pongBall.setDirection(pongBall.direction *= -1);
+			pongBall.setXVelocity();
 			System.out.println("Collision Detected");
 		}
 		if (pongBall.xPos > 1180 || pongBall.xPos < 0) {
-			pongBall.setDirection(pongBall.direction *= -1);
+			pongBall.reset(600,350);
+		}
+		if (pongBall.yPos > 680 || pongBall.yPos < 0) {
+			pongBall.setYVelocity();
 		}
 	}
 
@@ -109,6 +80,7 @@ public class PongBoard extends JPanel implements Runnable {
 				paddle2.move();
 				pongBall.move();
 				repaint();
+				System.out.println(pongBall.yVelocity);
 				//pongBall.move();
 				checkForCollision();
 				delta--;
