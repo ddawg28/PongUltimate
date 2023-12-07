@@ -14,6 +14,7 @@ public class Driver {
 		board.setLayout(null);
 		board.setPreferredSize(new Dimension(1200,700));
 		
+		
 		frame.add(board);
 		frame.setResizable(false);
 		frame.setTitle("Pong Ultimate");

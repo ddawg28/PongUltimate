@@ -23,6 +23,7 @@ public class PongBoard extends JPanel implements Runnable {
 	Ball pongBall = new Ball(600, 350);
 	Thread thread = new Thread(this);
 	JPanel test = new JPanel();
+	Score score = new Score(560, 20);
 	
 	Graphics graphics;
 	
@@ -33,6 +34,8 @@ public class PongBoard extends JPanel implements Runnable {
 		this.add(paddle1);
 		this.add(paddle2);
 		this.add(pongBall);
+		this.add(score);
+		
 		this.addKeyListener(new ActionListener());
 		this.setFocusable(true);
 		thread.start();
@@ -58,11 +61,30 @@ public class PongBoard extends JPanel implements Runnable {
 			pongBall.setXVelocity();
 			System.out.println("Collision Detected");
 		}
-		if (pongBall.xPos > 1180 || pongBall.xPos < 0) {
+		if (pongBall.xPos >= 1180) {
+			score.scored(1);
 			pongBall.reset(600,350);
 		}
-		if (pongBall.yPos > 680 || pongBall.yPos < 0) {
+		if (pongBall.xPos <= 0) {
+			score.scored(2);
+			pongBall.reset(600,350);
+			pongBall.setXVelocity();
 			pongBall.setYVelocity();
+		}
+		if (pongBall.yPos >= 680 || pongBall.yPos <= 0) {
+			pongBall.setYVelocity();
+		}
+		if (paddle1.yPos <= 0) {
+			paddle1.yPos = 0;
+		}
+		if (paddle2.yPos <= 0) {
+			paddle2.yPos = 0;
+		}
+		if (paddle1.yPos >= (700 - PADDLE_HEIGHT)) {
+			paddle1.yPos = (700 - PADDLE_HEIGHT);
+		}
+		if (paddle2.yPos >= (700 - PADDLE_HEIGHT)) {
+			paddle2.yPos = (700 - PADDLE_HEIGHT);
 		}
 	}
 
@@ -80,7 +102,7 @@ public class PongBoard extends JPanel implements Runnable {
 				paddle2.move();
 				pongBall.move();
 				repaint();
-				System.out.println(pongBall.yVelocity);
+				System.out.println(pongBall.xVelocity + " " + pongBall.yVelocity);
 				//pongBall.move();
 				checkForCollision();
 				delta--;

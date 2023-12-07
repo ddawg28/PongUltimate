@@ -43,9 +43,9 @@ public class Ball extends JPanel {
 	public void setYVelocity() {
 		yVelocity *= -1;
 		if (yVelocity < 0)
-			yVelocity = (random.nextInt(5) + 1) * -1;
+			yVelocity = (random.nextInt(5) + 2) * -1;
 		if (yVelocity > 0)
-			yVelocity = (random.nextInt(5) + 1);
+			yVelocity = (random.nextInt(5) + 2);
 	}
 	
 	protected void paintComponent(Graphics g) {
