@@ -1,29 +1,32 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.ImageIcon;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import javax.sound.sampled.*;
 
 public class Driver {
 	public static void main(String[] args) {
+		File track = new File("menuTrack.wav");
+		AudioInputStream audioStreamGlobal;
+		try {
+			audioStreamGlobal = AudioSystem.getAudioInputStream(track);
+			Clip clip = AudioSystem.getClip();
+			clip.open(audioStreamGlobal);
+			clip.start();
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		//PongBoard board = new PongBoard();
-		//board.setLayout(null);
-		//board.setPreferredSize(new Dimension(1200,700));
 		
 		// -----------------------------
 		// Title Screen
@@ -64,18 +67,28 @@ public class Driver {
 		selectTitle.setBounds(450,60, 600, 70);
 		selectTitle.setForeground(Color.white);
 		
-		JPanel defaultLevel = new JPanel();
+		ImagePanel defaultLevel = new ImagePanel("defaultLevel.jpg");
 		defaultLevel.setPreferredSize(new Dimension(200, 150));
 		defaultLevel.setBackground(Color.orange);
 		defaultLevel.setBounds(225, 200, 200, 150);
 		defaultLevel.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
+				File blip = new File("blip.wav");
+				AudioInputStream audioStream;
+				try {
+					audioStream = AudioSystem.getAudioInputStream(blip);
+					Clip clip = AudioSystem.getClip();
+					clip.open(audioStream);
+					clip.start();
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				frame.remove(selectScreen);
-				PongBoard board = new PongBoard();
+				PongBoard board = new PongBoard("defaultLevel.jpg");
 				board.setLayout(null);
-				board.requestFocus();
-				board.revalidate();
 				frame.add(board);
+				board.requestFocusInWindow();
 				frame.revalidate();
 				frame.repaint();
 			}
@@ -90,10 +103,41 @@ public class Driver {
 			}
 		});
 		
-		JPanel fillerLevel1 = new JPanel();
-		fillerLevel1.setPreferredSize(new Dimension(200, 150));
-		fillerLevel1.setBackground(Color.orange);
-		fillerLevel1.setBounds(500, 200, 200, 150);
+		ImagePanel tennisPanel = new ImagePanel("tennisLevel.png");
+		tennisPanel.setPreferredSize(new Dimension(200, 150));
+		tennisPanel.setBackground(Color.orange);
+		tennisPanel.setBounds(500, 200, 200, 150);
+		tennisPanel.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				File blip = new File("blip.wav");
+				AudioInputStream audioStream;
+				try {
+					audioStream = AudioSystem.getAudioInputStream(blip);
+					Clip clip = AudioSystem.getClip();
+					clip.open(audioStream);
+					clip.start();
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				frame.remove(selectScreen);
+				PongBoard board = new PongBoard("tennisLevel.png");
+				board.setLayout(null);
+				frame.add(board);
+				board.requestFocusInWindow();
+				frame.revalidate();
+				frame.repaint();
+			}
+			// Filler methods to avoid error
+			public void mousePressed(MouseEvent e) {
+			}
+			public void mouseReleased(MouseEvent e) {
+			}
+			public void mouseEntered(MouseEvent e) {
+			}
+			public void mouseExited(MouseEvent e) {
+			}
+		});
 		
 		JPanel fillerLevel2 = new JPanel();
 		fillerLevel2.setPreferredSize(new Dimension(200, 150));
@@ -120,34 +164,38 @@ public class Driver {
 		playButton.setPreferredSize(new Dimension(200, 50));
 		playButton.setBounds(500, 300, 200,50);
 		playButton.addActionListener(e -> {
+			File blip = new File("blip.wav");
+			AudioInputStream audioStream;
+			try {
+				audioStream = AudioSystem.getAudioInputStream(blip);
+				Clip clip = AudioSystem.getClip();
+				clip.open(audioStream);
+				clip.start();
+			} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			frame.remove(mainMenu);
 			frame.add(selectScreen);
 			frame.revalidate();
 			frame.repaint();
 		});
 		
-//		String buttonImagePath = "playButton3.jpg";
-//		ImagePanel playButtonImage = new ImagePanel(buttonImagePath);
-//		playButtonImage.setPreferredSize(new Dimension(200,200));
-//		playButtonImage.setBounds(200,200,100,100);
-		
 		mainMenu.add(title);
 		mainMenu.add(playButton);
-		//mainMenu.add(playButtonImage);
 		mainMenu.add(background);
 		
 		selectScreen.add(selectTitle);
 		selectScreen.add(defaultLevel);
-		selectScreen.add(fillerLevel1);
+		selectScreen.add(tennisPanel);
 		selectScreen.add(fillerLevel2);
 		selectScreen.add(fillerLevel3);
 		selectScreen.add(fillerLevel4);
 		selectScreen.add(fillerLevel5);
 		selectScreen.add(background2);
 		
-		
 		frame.add(mainMenu);
-		//frame.add(board);
 		frame.setResizable(false);
 		frame.setTitle("Pong Ultimate");
 		frame.pack();
@@ -155,6 +203,4 @@ public class Driver {
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 	}
-	
-	
 }

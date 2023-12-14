@@ -8,7 +8,7 @@ public class Paddle extends JPanel {
 	int xPos;
 	int yPos;
 	int paddleNum;
-	int paddleSpeed = 10;
+	int paddleSpeed = 12;
 	int paddleVelocity = 0;
 	int width;
 	int height;
@@ -28,7 +28,6 @@ public class Paddle extends JPanel {
 	public void keyPressed(KeyEvent e) {
 		if(paddleNum == 1) {
 			if(e.getKeyCode()==KeyEvent.VK_W) {
-				System.out.println("Swag");
 				setYDirection(-paddleSpeed);
 //				yPos -= paddleVelocity;
 //				System.out.println(yPos);
