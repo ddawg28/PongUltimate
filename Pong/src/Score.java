@@ -14,7 +14,7 @@ public class Score extends JLabel {
 	Integer playerOneScore = 0;
 	Integer playerTwoScore = 0;
 	Integer lastScored;
-	Integer maxScore = 3;
+	Integer maxScore = 5;
 	
 	public Score(int xPos, int yPos) {
 		super.setText(playerOneScore.toString() + " " + playerTwoScore.toString());

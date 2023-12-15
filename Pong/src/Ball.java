@@ -79,13 +79,6 @@ public class Ball extends JPanel {
 			yVelocity = (random.nextInt(7) + 2);
 	}
 	
-	protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        // Set the panel background color
-        g.setColor(getBackground());
-        g.fillOval(0, 0, 20, 20);
-    }
-	
 	public void reset(int xPos, int yPos) {
 		this.xPos = xPos;
 		this.yPos = yPos;
