@@ -21,7 +21,6 @@ public class Driver {
 			clip.open(audioStreamGlobal);
 			clip.start();
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		

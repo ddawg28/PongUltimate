@@ -29,9 +29,6 @@ public class Paddle extends JPanel {
 		if(paddleNum == 1) {
 			if(e.getKeyCode()==KeyEvent.VK_W) {
 				setYDirection(-paddleSpeed);
-//				yPos -= paddleVelocity;
-//				System.out.println(yPos);
-//				this.setBounds(xPos, yPos, width, height);
 			}
 			if(e.getKeyCode()==KeyEvent.VK_S) {
 				setYDirection(paddleSpeed);
@@ -40,9 +37,6 @@ public class Paddle extends JPanel {
 		if(paddleNum == 2) {
 			if(e.getKeyCode()==KeyEvent.VK_UP) {
 				setYDirection(-paddleSpeed);
-//				yPos -= paddleVelocity;
-//				System.out.println(yPos);
-//				this.setBounds(xPos, yPos, width, height);
 			}
 			if(e.getKeyCode()==KeyEvent.VK_DOWN) {
 				setYDirection(paddleSpeed);

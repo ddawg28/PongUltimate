@@ -46,7 +46,6 @@ public class Ball extends JPanel {
 			clip.open(audioStream);
 			clip.start();
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -68,7 +67,6 @@ public class Ball extends JPanel {
 			clip.open(audioStream);
 			clip.start();
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		

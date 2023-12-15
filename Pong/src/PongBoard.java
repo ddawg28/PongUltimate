@@ -30,8 +30,6 @@ public class PongBoard extends JPanel implements Runnable {
 	Score score = new Score(560, 20);
 	String imagePath;
 	Integer winner = 0;
-	
-	
 	Graphics graphics;
 	
 	public PongBoard(String imagePath) {
@@ -40,15 +38,13 @@ public class PongBoard extends JPanel implements Runnable {
 		this.imagePath = imagePath;
 		background.setPreferredSize(new Dimension(1200,700));
 		background.setBounds(0,0,1200,700);
+		
 		this.setBackground(Color.orange);
-		
-		
 		this.add(paddle1);
 		this.add(paddle2);
 		this.add(pongBall);
 		this.add(score);
 		this.add(background);
-		
 		this.addKeyListener(new ActionListener());
 		this.setFocusable(true);
 		thread.start();
